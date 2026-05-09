@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: API TaskFlow
+  description: Documentation de l'API pour l'application de gestion de tâches collaboratives.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /taches:
+    get:
+      summary: Récupérer toutes les tâches
+      responses:
+        '200':
+          description: Une liste de tâches
+    post:
+      summary: Créer une nouvelle tâche
+      responses:
+        '201':
+          description: Tâche créée avec succès
+  /taches/{id}/assigner:
+    put:
+      summary: Assigner une tâche à un membre
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tâche assignée et notification envoyée
