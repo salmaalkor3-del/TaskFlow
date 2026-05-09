@@ -1,1 +1,59 @@
+================================================ SINGLETON ================================================
+package patterns;
+
+import models.User;
+
+/**
+ * Singleton Pattern pour le service de notification.
+ */
+public class NotificationService {
+    // L'unique instance du service
+    private static NotificationService instance;
+
+    private NotificationService() {}
+
+    public static NotificationService getInstance() {
+        if (instance == null) {
+            instance = new NotificationService();
+        }
+        return instance;
+    }
+
+    public boolean notifier(User user, String message) {
+        System.out.println("Notification pour " + user.getUsername() + " : " + message);
+        return true;
+    }
+}
+================================================ Observer ================================================
+//first :  Observer
+package patterns;
+
+public interface Observer {
+    void update(String message);
+}
+
+//sencond : Subject
+package patterns;
+
+public interface Subject {
+    void addObserver(Observer observer);
+    void removeObserver(Observer observer);
+    void notifyObserver();
+}
+================================================ Factory ================================================
+package patterns;
+
+import models.Task;
+import java.util.Date;
+
+/**
+ * Factory Pattern pour la création des tâches.
+ */
+public class TaskFactory {
+    
+    public static Task createTask(int id, String titre, String description, Date dateEcheance) {
+        // Hna nqdro n-ajoutiw logique khassa (ex: validation de date)
+        return new Task(id, titre, description, dateEcheance);
+    }
+}
 
