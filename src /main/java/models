@@ -1,1 +1,112 @@
+================================================= CLASS User.java =================================================
+package models;
 
+public abstract class User {
+    protected int id;
+    protected String nom;
+
+    public User(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
+    public boolean login() {
+        return true; 
+    }
+
+    public void logout() {
+        // Logique de déconnexion
+    }
+
+    public String recevoirNotification() {
+        return "Notification reçue";
+    }
+}
+================================================= CLASS Admin.java =================================================
+package models;
+
+public class Admin extends User {
+    
+    public Admin(int id, String nom) {
+        super(id, nom);
+    }
+
+    public Project creerProjet() {
+        return new Project(1, "Nouveau Projet", "Description");
+    }
+
+    public boolean supprimerProjet() {
+        return true;
+    }
+
+    public boolean ajouterMembre() {
+        return true;
+    }
+
+    public boolean attribuerTache() {
+        return true;
+    }
+}
+================================================= CLASS Task.java =================================================
+package models;
+
+import java.util.Date;
+
+public class Task {
+    private int id;
+    private String titre;
+    private String description;
+    private Date dateEcheance;
+    private TaskStatus statut;
+
+    public Task(int id, String titre, String description, Date dateEcheance) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.dateEcheance = dateEcheance;
+        this.statut = TaskStatus.A_FAIRE;
+    }
+
+    public TaskStatus changerStatut() {
+        // Logique pour changer le statut
+        return this.statut;
+    }
+
+    public boolean assignerUtilisateur() {
+        return true;
+    }
+}
+================================================= CLASS Project.java =================================================
+package models;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Project {
+    private int id;
+    private String nom;
+    private String ddescription; // J'ai gardé la faute de frappe "ddescription" comme dans ton diagramme ;)
+
+    private List<Task> tasks;
+    private List<User> users;
+
+    public Project(int id, String nom, String description) {
+        this.id = id;
+        this.nom = nom;
+        this.ddescription = description;
+        this.tasks = new ArrayList<>();
+        this.users = new ArrayList<>();
+    }
+
+    public boolean ajouterTache() {
+        return true;
+    }
+
+    public boolean supprimerTache() {
+        return true;
+    }
+
+    public boolean ajouterMembre() {
+        return true;
+    }
+}
