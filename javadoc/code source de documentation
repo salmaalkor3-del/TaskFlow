@@ -1,0 +1,417 @@
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Enum représentant les différents statuts d'une tâche.
+ */
+enum TaskStatus {
+    A_FAIRE,
+    EN_COURS,
+    TERMINEE
+}
+
+/**
+ * Classe représentant un utilisateur.
+ */
+class User {
+
+    protected int id;
+    protected String nom;
+
+    /**
+     * Constructeur de User.
+     *
+     * @param id identifiant utilisateur
+     * @param nom nom utilisateur
+     */
+    public User(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
+    /**
+     * Connecte l'utilisateur.
+     *
+     * @return true si connexion réussie
+     */
+    public boolean login() {
+
+        System.out.println(nom + " connecté");
+
+        return true;
+    }
+
+    /**
+     * Déconnecte l'utilisateur.
+     */
+    public void logout() {
+
+        System.out.println(nom + " déconnecté");
+    }
+
+    /**
+     * Retourne une notification.
+     *
+     * @return message de notification
+     */
+    public String recevoirNotification() {
+
+        return "Notification reçue";
+    }
+}
+
+/**
+ * Classe représentant un administrateur.
+ */
+class Admin extends User {
+
+    /**
+     * Constructeur Admin.
+     *
+     * @param id identifiant admin
+     * @param nom nom admin
+     */
+    public Admin(int id, String nom) {
+        super(id, nom);
+    }
+
+    /**
+     * Crée un nouveau projet.
+     *
+     * @param id identifiant projet
+     * @param nom nom projet
+     * @param description description projet
+     * @return projet créé
+     */
+    public Project creerProjet(
+            int id,
+            String nom,
+            String description
+    ) {
+
+        return new Project(id, nom, description);
+    }
+
+    /**
+     * Supprime un projet.
+     *
+     * @param project projet à supprimer
+     * @return true si suppression réussie
+     */
+    public boolean supprimerProjet(Project project) {
+
+        System.out.println("Projet supprimé");
+
+        return true;
+    }
+
+    /**
+     * Ajoute un membre au projet.
+     *
+     * @param project projet concerné
+     * @param user utilisateur à ajouter
+     * @return true si ajout réussi
+     */
+    public boolean ajouterMembre(
+            Project project,
+            User user
+    ) {
+
+        return project.ajouterMembre(user);
+    }
+
+    /**
+     * Attribue une tâche à un utilisateur.
+     *
+     * @param task tâche concernée
+     * @param user utilisateur cible
+     * @return true si attribution réussie
+     */
+    public boolean attribuerTache(
+            Task task,
+            User user
+    ) {
+
+        return task.assignerUtilisateur(user);
+    }
+}
+
+/**
+ * Classe représentant un projet.
+ */
+class Project {
+
+    private int id;
+    private String nom;
+    private String description;
+
+    private List<Task> tasks;
+    private List<User> membres;
+
+    /**
+     * Constructeur Project.
+     *
+     * @param id identifiant projet
+     * @param nom nom projet
+     * @param description description projet
+     */
+    public Project(
+            int id,
+            String nom,
+            String description
+    ) {
+
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+
+        tasks = new ArrayList<>();
+        membres = new ArrayList<>();
+    }
+
+    /**
+     * Ajoute une tâche au projet.
+     *
+     * @param task tâche à ajouter
+     * @return true si ajout réussi
+     */
+    public boolean ajouterTache(Task task) {
+
+        tasks.add(task);
+
+        return true;
+    }
+
+    /**
+     * Supprime une tâche du projet.
+     *
+     * @param task tâche à supprimer
+     * @return true si suppression réussie
+     */
+    public boolean supprimerTache(Task task) {
+
+        tasks.remove(task);
+
+        return true;
+    }
+
+    /**
+     * Ajoute un membre au projet.
+     *
+     * @param user utilisateur à ajouter
+     * @return true si ajout réussi
+     */
+    public boolean ajouterMembre(User user) {
+
+        membres.add(user);
+
+        return true;
+    }
+}
+
+/**
+ * Classe représentant une tâche.
+ */
+class Task {
+
+    private int id;
+    private String titre;
+    private String description;
+    private String dateEcheance;
+
+    private TaskStatus statut;
+
+    private User utilisateur;
+
+    /**
+     * Constructeur Task.
+     *
+     * @param id identifiant tâche
+     * @param titre titre tâche
+     * @param description description tâche
+     * @param dateEcheance date limite
+     */
+    public Task(
+            int id,
+            String titre,
+            String description,
+            String dateEcheance
+    ) {
+
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.dateEcheance = dateEcheance;
+
+        this.statut = TaskStatus.A_FAIRE;
+    }
+
+    /**
+     * Change le statut de la tâche.
+     *
+     * @param nouveauStatut nouveau statut
+     * @return statut actuel
+     */
+    public TaskStatus changerStatut(
+            TaskStatus nouveauStatut
+    ) {
+
+        this.statut = nouveauStatut;
+
+        return statut;
+    }
+
+    /**
+     * Assigne un utilisateur à la tâche.
+     *
+     * @param user utilisateur cible
+     * @return true si attribution réussie
+     */
+    public boolean assignerUtilisateur(User user) {
+
+        this.utilisateur = user;
+
+        System.out.println(
+                "Tâche assignée à : " + user.nom
+        );
+
+        return true;
+    }
+}
+
+/**
+ * Classe représentant une notification.
+ */
+class Notification {
+
+    private int id;
+    private String message;
+    private String date;
+
+    /**
+     * Constructeur Notification.
+     *
+     * @param id identifiant notification
+     * @param message contenu notification
+     * @param date date notification
+     */
+    public Notification(
+            int id,
+            String message,
+            String date
+    ) {
+
+        this.id = id;
+        this.message = message;
+        this.date = date;
+    }
+
+    /**
+     * Envoie la notification.
+     *
+     * @return true si envoi réussi
+     */
+    public boolean envoyer() {
+
+        System.out.println(
+                "Notification envoyée : " + message
+        );
+
+        return true;
+    }
+}
+
+/**
+ * Service gérant les notifications.
+ */
+class NotificationService {
+
+    /**
+     * Envoie une notification.
+     *
+     * @param message contenu notification
+     * @return true si notification envoyée
+     */
+    public boolean notifier(String message) {
+
+        Notification notification =
+                new Notification(
+                        1,
+                        message,
+                        "08/05/2026"
+                );
+
+        return notification.envoyer();
+    }
+}
+
+/**
+ * Classe principale du projet TaskFlow.
+ */
+public class Main {
+
+    /**
+     * Point d'entrée principal du programme.
+     *
+     * @param args arguments ligne de commande
+     */
+    public static void main(String[] args) {
+
+        // Création admin
+        Admin admin =
+                new Admin(1, "Younes");
+
+        // Création projet
+        Project project =
+                admin.creerProjet(
+                        1,
+                        "Gestion Projet",
+                        "Projet UML"
+                );
+
+        // Création tâche
+        Task task =
+                new Task(
+                        1,
+                        "Créer diagramme",
+                        "Diagramme UML",
+                        "10/05/2026"
+                );
+
+        // Ajouter tâche au projet
+        project.ajouterTache(task);
+
+        // Création membre
+        User membre =
+                new User(2, "Ahmed");
+
+        // Ajouter membre
+        admin.ajouterMembre(
+                project,
+                membre
+        );
+
+        // Attribuer tâche
+        admin.attribuerTache(
+                task,
+                membre
+        );
+
+        // Changer statut
+        task.changerStatut(
+                TaskStatus.EN_COURS
+        );
+
+        task.changerStatut(
+                TaskStatus.TERMINEE
+        );
+
+        // Notification
+        NotificationService service =
+                new NotificationService();
+
+        service.notifier(
+                "Projet mis à jour"
+        );
+    }
+}
