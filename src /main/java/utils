@@ -1,1 +1,42 @@
+================================================ ValidationUtils ================================================
+package utils;
+
+public class ValidationUtils {
+
+    public static boolean isValidEmail(String email) {
+        return email.contains("@");
+    }
+
+    public static boolean isValidPassword(String password) {
+        return password.length() >= 6;
+    }
+}
+
+================================================ DateUtils ================================================
+package utils;
+
+import java.time.LocalDate;
+
+public class DateUtils {
+
+    public static LocalDate getCurrentDate() {
+        return LocalDate.now();
+    }
+
+    public static boolean isExpired(LocalDate date) {
+        return date.isBefore(LocalDate.now());
+    }
+}
+
+================================================ Constants ================================================
+package utils;
+
+public class Constants {
+
+    public static final int MAX_USERS = 100;
+
+    public static final String APP_NAME = "TaskFlow";
+
+    public static final String DEFAULT_STATUS = "A_FAIRE";
+}
 
