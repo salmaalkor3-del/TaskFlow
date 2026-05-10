@@ -35,9 +35,7 @@ class User {
      * @return true si connexion réussie
      */
     public boolean login() {
-
         System.out.println(nom + " connecté");
-
         return true;
     }
 
@@ -45,7 +43,6 @@ class User {
      * Déconnecte l'utilisateur.
      */
     public void logout() {
-
         System.out.println(nom + " déconnecté");
     }
 
@@ -55,7 +52,6 @@ class User {
      * @return message de notification
      */
     public String recevoirNotification() {
-
         return "Notification reçue";
     }
 }
@@ -83,12 +79,7 @@ class Admin extends User {
      * @param description description projet
      * @return projet créé
      */
-    public Project creerProjet(
-            int id,
-            String nom,
-            String description
-    ) {
-
+    public Project creerProjet(int id, String nom, String description) {
         return new Project(id, nom, description);
     }
 
@@ -99,9 +90,7 @@ class Admin extends User {
      * @return true si suppression réussie
      */
     public boolean supprimerProjet(Project project) {
-
         System.out.println("Projet supprimé");
-
         return true;
     }
 
@@ -112,11 +101,7 @@ class Admin extends User {
      * @param user utilisateur à ajouter
      * @return true si ajout réussi
      */
-    public boolean ajouterMembre(
-            Project project,
-            User user
-    ) {
-
+    public boolean ajouterMembre(Project project, User user) {
         return project.ajouterMembre(user);
     }
 
@@ -127,11 +112,7 @@ class Admin extends User {
      * @param user utilisateur cible
      * @return true si attribution réussie
      */
-    public boolean attribuerTache(
-            Task task,
-            User user
-    ) {
-
+    public boolean attribuerTache(Task task, User user) {
         return task.assignerUtilisateur(user);
     }
 }
@@ -155,12 +136,7 @@ class Project {
      * @param nom nom projet
      * @param description description projet
      */
-    public Project(
-            int id,
-            String nom,
-            String description
-    ) {
-
+    public Project(int id, String nom, String description) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -176,9 +152,7 @@ class Project {
      * @return true si ajout réussi
      */
     public boolean ajouterTache(Task task) {
-
         tasks.add(task);
-
         return true;
     }
 
@@ -189,9 +163,7 @@ class Project {
      * @return true si suppression réussie
      */
     public boolean supprimerTache(Task task) {
-
         tasks.remove(task);
-
         return true;
     }
 
@@ -202,9 +174,7 @@ class Project {
      * @return true si ajout réussi
      */
     public boolean ajouterMembre(User user) {
-
         membres.add(user);
-
         return true;
     }
 }
@@ -231,13 +201,7 @@ class Task {
      * @param description description tâche
      * @param dateEcheance date limite
      */
-    public Task(
-            int id,
-            String titre,
-            String description,
-            String dateEcheance
-    ) {
-
+    public Task(int id, String titre, String description, String dateEcheance) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -252,12 +216,8 @@ class Task {
      * @param nouveauStatut nouveau statut
      * @return statut actuel
      */
-    public TaskStatus changerStatut(
-            TaskStatus nouveauStatut
-    ) {
-
+    public TaskStatus changerStatut(TaskStatus nouveauStatut) {
         this.statut = nouveauStatut;
-
         return statut;
     }
 
@@ -268,13 +228,8 @@ class Task {
      * @return true si attribution réussie
      */
     public boolean assignerUtilisateur(User user) {
-
         this.utilisateur = user;
-
-        System.out.println(
-                "Tâche assignée à : " + user.nom
-        );
-
+        System.out.println("Tâche assignée à : " + user.nom);
         return true;
     }
 }
@@ -295,12 +250,7 @@ class Notification {
      * @param message contenu notification
      * @param date date notification
      */
-    public Notification(
-            int id,
-            String message,
-            String date
-    ) {
-
+    public Notification(int id, String message, String date) {
         this.id = id;
         this.message = message;
         this.date = date;
@@ -312,11 +262,7 @@ class Notification {
      * @return true si envoi réussi
      */
     public boolean envoyer() {
-
-        System.out.println(
-                "Notification envoyée : " + message
-        );
-
+        System.out.println("Notification envoyée : " + message);
         return true;
     }
 }
@@ -333,14 +279,7 @@ class NotificationService {
      * @return true si notification envoyée
      */
     public boolean notifier(String message) {
-
-        Notification notification =
-                new Notification(
-                        1,
-                        message,
-                        "08/05/2026"
-                );
-
+        Notification notification = new Notification(1, message, "08/05/2026");
         return notification.envoyer();
     }
 }
@@ -358,60 +297,33 @@ public class Main {
     public static void main(String[] args) {
 
         // Création admin
-        Admin admin =
-                new Admin(1, "Younes");
+        Admin admin = new Admin(1, "Younes");
 
         // Création projet
-        Project project =
-                admin.creerProjet(
-                        1,
-                        "Gestion Projet",
-                        "Projet UML"
-                );
+        Project project = admin.creerProjet(1, "Gestion Projet", "Projet UML");
 
         // Création tâche
-        Task task =
-                new Task(
-                        1,
-                        "Créer diagramme",
-                        "Diagramme UML",
-                        "10/05/2026"
-                );
+        Task task = new Task(1, "Créer diagramme", "Diagramme UML", "10/05/2026");
 
         // Ajouter tâche au projet
         project.ajouterTache(task);
 
         // Création membre
-        User membre =
-                new User(2, "Ahmed");
+        User membre = new User(2, "Ahmed");
 
         // Ajouter membre
-        admin.ajouterMembre(
-                project,
-                membre
-        );
+        admin.ajouterMembre(project, membre);
 
         // Attribuer tâche
-        admin.attribuerTache(
-                task,
-                membre
-        );
+        admin.attribuerTache(task, membre);
 
         // Changer statut
-        task.changerStatut(
-                TaskStatus.EN_COURS
-        );
-
-        task.changerStatut(
-                TaskStatus.TERMINEE
-        );
+        task.changerStatut(TaskStatus.EN_COURS);
+        task.changerStatut(TaskStatus.TERMINEE);
 
         // Notification
-        NotificationService service =
-                new NotificationService();
-
-        service.notifier(
-                "Projet mis à jour"
-        );
+        NotificationService service = new NotificationService();
+        service.notifier("Projet mis à jour");
     }
+}
 }
