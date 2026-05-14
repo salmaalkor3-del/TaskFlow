@@ -1,1 +1,84 @@
+================================================ AuthService ================================================
+package services;
+
+import models.User;
+
+public class AuthService {
+
+    public void register(User user) {
+        System.out.println("Utilisateur inscrit : " + user.getNom());
+    }
+
+    public boolean login(String email, String password) {
+        if(email != null && password != null) {
+            System.out.println("Connexion réussie");
+            return true;
+        }
+        System.out.println("Connexion échouée");
+        return false;
+    }
+}
+
+================================================ ProjectService ================================================
+package services;
+
+import models.Project;
+import models.User;
+
+public class ProjectService {
+
+    public void createProject(Project project) {
+        System.out.println("Projet créé : " + project.getNom());
+    }
+
+    public void addMember(Project project, User user) {
+        project.ajouterMembre(user);
+        System.out.println("Membre ajouté au projet");
+    }
+
+    public void deleteProject(Project project) {
+        System.out.println("Projet supprimé : " + project.getNom());
+    }
+}
+
+================================================ TaskService ================================================
+package services;
+
+import models.Task;
+import models.User;
+import patterns.NotificationService;
+import patterns.TaskFactory;
+
+public class TaskService {
+
+    public Task createTask(String titre, String description) {
+        Task task = TaskFactory.createTask(titre, description);
+        System.out.println("Tâche créée");
+        return task;
+    }
+
+    public void assignTask(Task task, User user) {
+        task.assignerUtilisateur(user);
+        NotificationService service = NotificationService.getInstance();
+        service.notifier(user, "Une nouvelle tâche vous a été assignée");
+        System.out.println("Tâche assignée");
+    }
+
+    public void changeStatus(Task task) {
+        task.changerStatut();
+        System.out.println("Statut modifié");
+    }
+}
+
+================================================ NotificationManager ================================================
+package services;
+
+import models.User;
+
+public class NotificationManager {
+
+    public void sendNotification(User user, String message) {
+        System.out.println("Notification envoyée à " + user.getNom() + " : " + message);
+    }
+}
 
