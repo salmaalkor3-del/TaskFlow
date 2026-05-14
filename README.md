@@ -1,5 +1,5 @@
 Documentation TaskFlow
-# 📋 TaskFlow - Application de gestion de tâches collaboratives
+#  TaskFlow - Application de gestion de tâches collaboratives
 
 ## 🎯 Contexte du Projet
 Mini-projet réalisé dans le cadre du module **Conception Logicielle**. 
@@ -14,7 +14,7 @@ Le projet respecte les principes **SOLID** et **KISS**. Nous avons intégré les
 ## 📂 Structure du projet
 - `docs/diagrammes/` : Contient les diagrammes UML (Cas d'utilisation, Classes, Séquences, Activité).
 - `src/` : Code source en Python (Modèles et Patterns).
-- `swagger.yaml` : Documentation de l'API REST.
+- `swagger.yaml` : Non Documentation utilisée pour les APIs ( n'a pas de API dans notre code )
 
 ## 👥 Équipe
 - Membre 1 : [badar belfakir]
